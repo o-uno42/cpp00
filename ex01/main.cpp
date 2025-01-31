@@ -9,11 +9,11 @@ int main(void)
 	{
 		std::string	input;
 
-		std::cout << "You can ADD or SEARCH a contact.\nType EXIT to exit PhoneBook." << std::endl;
+		std::cout << "You can " << CYAN << "ADD" << RESET << " or " << YELLOW << "SEARCH" << RESET << " a contact.\nType " << MAGENTA << "EXIT" << RESET " to exit PhoneBook." << std::endl;
 		if(!(std::getline(std::cin, input)))
             break;
 		if ((input != "ADD" && input != "SEARCH" && input != "EXIT"))
-			std::cout << "Write ADD or SEARCH.";
+			std::cout << "\nWrite " << CYAN "ADD" << RESET << " or " << YELLOW << "SEARCH." << RESET << std::endl;
 		else if (input == "ADD")
 		{
 			if (phoneBook.index > 7)
@@ -22,10 +22,13 @@ int main(void)
 			phoneBook.index++;
 		}
 		else if (input == "SEARCH")
+		{
 			phoneBook.searchContact();
+			std::cout << std::flush;
+		}
 		else
 		{
-			std::cout << "Bye!" << std::endl;
+			std::cout << MAGENTA << "Bye!" << RESET << std::endl;
 			break ;
 		}
 		std::cout << std::endl;

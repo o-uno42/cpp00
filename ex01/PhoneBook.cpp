@@ -1,4 +1,5 @@
 #include "PhoneBook.hpp"
+#include <iostream>
 
 std::string PhoneBook::truncate(const std::string& str) const {
     if (str.length() > 10) {
@@ -42,18 +43,17 @@ void	PhoneBook::searchContact()
 {
 	int	i = 0;
 	int j = 0;
-	int	isNotValid = true;
 
-	while (isNotValid)
+	while (1)
 	{
 		if (index < 1)
 		{
-			std::cout << "The PhoneBook is empty. Type ADD to add contacts." << std::endl;
+			std::cout << YELLOW << "The PhoneBook is empty. Type ADD to add contacts." << RESET << std::endl;
 			return ;
 		}
 		else
 		{
-			std::cout << "------------ Saved contacts ------------" << std::endl;
+			std::cout << YELLOW << "------------ Saved contacts ------------" << RESET << std::endl;
 			while(i < index)
 			{
 				std::cout<< std::setw(10) << std::right << i + 1 << " | "
@@ -63,21 +63,31 @@ void	PhoneBook::searchContact()
 				i++;
 			
 			}
-			std::cout << "Type contact's index to see more: ";
-			std::cin >> selectedIndex;
+			std::cout << YELLOW << "Type contact's index to see more: " << RESET;
+			if(!(std::getline(std::cin, selectedIndex)))
+				return;
 			j = atoi(selectedIndex.c_str());
+			if (j > 7)
+			{
+				std::cout << "The index [" << YELLOW << selectedIndex << RESET << "] doesn't exist!" << std::endl;
+				break ;
+			}
 			j--;
 			if (j >= 0 && j <= index && !contacts[j].getFirstName().empty())
 			{
-				std::cout << "------------ [" << selectedIndex << "] -------------" << std::endl;
+				std::cout << YELLOW << "------------ [" << selectedIndex << "] -------------" << RESET << std::endl;
 				std::cout << "First name:     " << contacts[j].getFirstName() << std::endl;
 				std::cout << "Last name:      " << contacts[j].getLastName() << std::endl;
 				std::cout << "Nickname:       " << contacts[j].getNickname() << std::endl;
 				std::cout << "Phone number:   " << contacts[j].getPhoneNumber() << std::endl;
 				std::cout << "Darkest secret: " << contacts[j].getDarkestSecret() << std::endl;
-				return ;
+				break ;
 			}
-			isNotValid = false;
+			else
+			{
+				std::cout << "The index [" << YELLOW << selectedIndex << RESET << "] doesn't exist!" << std::endl;
+				break ;
+			}
 		}
 	}
 }
@@ -89,56 +99,56 @@ void	PhoneBook::addContact()
 
 	while (1)
 	{
-		std::cout << "First name: ";
+		std::cout << CYAN << "First name: " << RESET;
 		if(!(std::getline(std::cin, buf)))
 			return;
 		contact.setFirstName(trimSpaces(buf));
 		if (contact.getFirstName().empty())
-			std::cout << "Don't leave it empty!" << std::endl;
+			std::cout << CYAN << "Don't leave it empty!" << std::endl;
 		else
 			break ;
 	}
 	while (1)
 	{
-		std::cout << "Last name: ";
+		std::cout << CYAN << "Last name: " << RESET;
 		if(!(std::getline(std::cin, buf)))
 			return;
 		contact.setLastName(trimSpaces(buf));
 		if (contact.getLastName().empty())
-			std::cout << "Don't leave it empty!" << std::endl;
+			std::cout << CYAN << "Don't leave it empty!" << RESET << std::endl;
 		else
 			break;
 	}
 	while (1)
 	{
-		std::cout << "Nickname: ";
+		std::cout << CYAN << "Nickname: " << RESET;
 		if(!(std::getline(std::cin, buf)))
 			return;
 		contact.setNickname(trimSpaces(buf));
 		if (contact.getNickname().empty())
-			std::cout << "Don't leave it empty!" << std::endl;
+			std::cout << CYAN << "Don't leave it empty!" << RESET << std::endl;
 		else
 			break;
 	}
 	while (1)
 	{
-		std::cout << "Phone number: ";
+		std::cout << CYAN << "Phone number: " << RESET;
 		if(!(std::getline(std::cin, buf)))
 			return;
 		contact.setPhoneNumber(trimSpaces(buf));
 		if (contact.getPhoneNumber().empty())
-			std::cout << "Don't leave it empty!" << std::endl;
+			std::cout << CYAN << "Don't leave it empty!" << RESET << std::endl;
 		else
 			break;
 	}
 	while (1)
 	{
-		std::cout << "Darkest secret: ";
+		std::cout << CYAN << "Darkest secret: " << RESET;
 		if(!(std::getline(std::cin, buf)))
 			return;
 		contact.setDarkestSecret(trimSpaces(buf));
 		if (contact.getDarkestSecret().empty())
-			std::cout << "Don't leave it empty!" << std::endl;
+			std::cout << CYAN << "Don't leave it empty!" << RESET << std::endl;
 		else
 			break ;
 	}
